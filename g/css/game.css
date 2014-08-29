@@ -12,10 +12,8 @@ body{
   background:#7bc3fd;
   text-align: center;
 }
-#p1 .btn-start,
-#p1 .btn-test,
-#p1 .btn-test2{
-  margin-top:30%;
+.btn-start{
+  margin-top:50%;
   display:inline-block;
   width:200px;
   height:60px;
@@ -27,7 +25,35 @@ body{
 }
 
 #p2{
-  display:none;
+  display:none; 
+  position: relative;
+  height:100%;
+}
+
+.square{
+  position:absolute;
+  bottom:10%;
+  margin:0 auto;
+  padding:10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background:#ccc;
+  border-radius:5px;
+}
+.square .box{
+  display:block;
+  float:left;
+  width:33.33333%;
+  height:33.33333%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border:2px solid #ccc;
+  border-radius: 5px;
+  background-color:#7bc3fd;
+  background-size:cover;
+  cursor:pointer;
 }
 
 #p3{
