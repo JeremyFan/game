@@ -3,9 +3,40 @@
 <head>
   <link rel="stylesheet" href="css/game.css">
   <meta charset="utf-8">
-  <title>游戏</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <title>game name</title>
 </head>
 <body>
+  <!-- 开始 -->
+  <section id="p1">
+    <div class="btn-start">开始游戏</div>
+    <div class="btn-test">测试</div>
+    <div class="btn-test2">测试2</div>
+  </section>
 
+  <!-- 游戏页面 -->
+  <section id="p2">
+    游戏
+  </section>
+
+  <!-- 分享页面 -->
+  <section id="p3">
+
+  </section>
+
+  <script src="scripts/zepto.min.js"></script>
+  <script>
+    $(function(){
+      $('.btn-start').on('tap',function(){
+        alert('tap');
+      })
+      $('.btn-test').on('click',function(){
+        alert('click');
+      })
+      $('.btn-test2').on('touchstart',function(){
+        alert('touchstart');
+      })
+    })
+  </script>
 </body>
 </html>
