@@ -227,6 +227,28 @@
       });
     }
 
+    // 游戏控制类
+    var Game={
+      time:30
+    }
+
+    var girls={
+      0:'#000',
+      1:'#09f',
+      2:'#6ff',
+      3:'#900',
+      4:'#9fc'
+    }
+
+    function start(){
+      // console.log(1);
+
+      var girl=girls[Math.floor(Math.random()*5)]
+
+      // setTimeout(start,1000);
+    }
+    start();
+
   </script>
 </body>
 </html>
