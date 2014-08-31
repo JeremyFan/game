@@ -9,10 +9,14 @@
 <body>
   <!-- 开始 -->
   <section id="p1">
-    <div class="btn-start" id="btnStart">开始游戏</div>
+    <div class="btn-start " id="btnStart">开始游戏</div>
   </section>
   <!-- 游戏页面 -->
   <section id="p2">
+    <div class="info">
+      <span class="score">得分 <i> 0</i></span>
+    </div>
+    <p style="color:#fff">点到彩色方块+1分，点到黑色方块游戏结束</p>
     <div class="square">
       <span class="box"></span>
       <span class="box"></span>
@@ -27,7 +31,7 @@
   </section>
   <!-- 分享页面 -->
   <section id="p3">
-
+    <span style="color:#fff;">游戏结束</span>
   </section>
   <script src="http://cdn.bootcss.com/zepto/1.1.4/zepto.min.js"></script>
   <script>
@@ -208,17 +212,21 @@
             $p2=$('#p2');
         $p1.hide();
         $p2.show();
+
+        Game.init();
+        Game.start();
       })
 
-      $('.box').on('tap',function(){
-        // var $box=$(this),
-        //     colorIndex=Math.floor(Math.random()*8),
-        //     color=colors[colorIndex];
-        // $box.css('background-color',color);
+      // $('.box').on('tap',function(){
+      //   // var $box=$(this),
+      //   //     colorIndex=Math.floor(Math.random()*8),
+      //   //     color=colors[colorIndex];
+      //   // $box.css('background-color',color);
 
-      })
+      // })
     })
 
+    // 设置方格宽度/高度
     function initSquare(){
       var $square=$('.square'),
           width=$(window).width()||300;
@@ -228,36 +236,186 @@
       });
     }
 
+    // 方格类
+    var Box=function(){
+      // 方格内妹子
+      this.girl=null;
+      // 方格元素
+      this.boxElement={};
+      // 点击事件
+      this.onTap=function(){
+        // if(this.girl.number===0){
+
+        // }
+        // else{
+        //   return;
+        // }
+        //
+        // 方格里没有妹子
+        // debugger
+        if(!this.girl) return 0;
+        // 点中不好看的妹子
+        else if(this.girl.number===0) return -1;
+        // 点中的妹子还可以被点击
+        else if(this.girl.isLive){
+          this.girl.isLive=false;
+          return 1;
+        }
+        // 妹子已经被点击过了
+        else{
+          return 0;
+        }
+
+
+        // 如果妹子还能被点击
+        // if(this.girl.isLive){
+        //   this.girl.isLive=false;
+        //   return (this.girl.number===0);
+        // }
+      };
+    }
+
+    // 妹子类
+    var Girl=function(photo){
+      // 妹子的编号
+      this.number=-1;
+      // 妹子在第几个方格
+      this.box=-1;
+      // 妹子照片
+      this.photo='';
+      // 是否还可以再点击
+      this.isLive=true;
+
+      // this.init=function(photo){
+      //   this.photo=photo;
+      // }
+      // this.init(photo);
+      this.photo=photo;
+
+      // 妹子出现
+      this.active=function(){
+        var girl=this,
+            box=girl.box;
+        box.boxElement.css('background-color',girl.photo);
+        setTimeout(function(){
+          girl.hide();
+        },1000);
+      }
+
+      // 妹子隐藏
+      this.hide=function(){
+        // debugger
+        this.isLive=true;
+        this.box.boxElement.css('background-color','#7bc3fd');
+        this.box.girl=null;
+        this.onHide();
+      }
+
+      // 妹子隐藏扩展
+      this.onHide=function(){};
+
+      // 妹子被点击扩展
+      // this.onClick=function(){};
+    }
+
     // 游戏控制类
     var Game={
       time:30,
-      boxes:{},
+      boxes:[],
+      girlPhoto:{
+        0:'#000',
+        1:'#09f',
+        2:'#6ff',
+        3:'#900',
+        4:'#9fc',
+        5:'#6f0',
+        6:'#90c',
+        7:'#99f',
+        8:'#c36',
+        9:'#ff6'
+      },
       girls:[],
       activeBoxes:{},
       activeGirls:{},
       init:function(){
-        this.boxes=$('.box');
-        this.girls={
-          0:'#000',
-          1:'#09f',
-          2:'#6ff',
-          3:'#900',
-          4:'#9fc'
+        var game=this;
+        // game.boxes=$('.box');
+        $('.box').each(function(i){
+          var box=new Box();
+          box.boxElement=$(this).on('tap',function(){
+            // TODO：点中不好看的妹子，游戏结束
+            var result=box.onTap();
+            if(result<0){
+              $('#p2').hide();
+              $('#p3').show();
+            }
+            else{
+              game.changeScore(result);
+            }
+          });
+
+          game.boxes.push(box);
+        })
+
+        // 创建妹子
+        for(var i=0;i<10;i++){
+          var girl=new Girl(game.girlPhoto[i]);
+          girl.number=i;
+          girl.onHide=function(){
+            // debugger
+            // var boxIndex=game.boxes.index(this.box);
+            var boxIndex=$.inArray(this.box,game.boxes);
+            game.activeBoxes[boxIndex]=null;
+            game.activeGirls[this.number]=null;
+          }
+          this.girls.push(girl);
         }
       },
-      start:function(){
-        var game=this;
-        var boxIndex=Math.floor(Math.random()*9);
-        var girl=game.girls[Math.floor(Math.random()*5)];
 
-        var box=game.boxes.eq(boxIndex);
+      start:function(){
+        var game=this,
+            boxIndex=Math.floor(Math.random()*9),
+            girlIndex=Math.floor(Math.random()*10),
+            box,girl;
+
+        while(game.activeBoxes[boxIndex]){
+          boxIndex=Math.floor(Math.random()*9);
+        }
+        box=game.boxes[boxIndex];
+
+        while(game.activeGirls[girlIndex]){
+          girlIndex=Math.floor(Math.random()*10);
+        }
+        girl=game.girls[girlIndex];
+
+        // girl.number=girlIndex;
+        girl.box=box;
+        box.girl=girl;
+
+        game.activeBoxes[boxIndex]=true;
+        game.activeGirls[girlIndex]=true;
+
+        girl.active();
+
+
+
+
+
+        // setTimeout(function(){game.start()},100+Math.random()*300);
+        setTimeout(function(){game.start()},200)
+      },
+
+      // 修改得分
+      changeScore:function(score){
+        var scoreEle=$('.score i'),
+            newScore=parseInt(scoreEle.html())+score;
+        scoreEle.html(newScore);
       }
     }
 
 
 
-    Game.init();
-    Game.start();
+
 
   </script>
 </body>
