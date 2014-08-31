@@ -201,7 +201,7 @@
 
       initSquare();
 
-      var colors=['#000','#09f','#6ff','#900','#9fc','#c63','#f66','#fc0'];
+      // var colors=['#000','#09f','#6ff','#900','#9fc','#c63','#f66','#fc0'];
 
       $('.btn-start').on('tap',function(){
         var $p1=$('#p1'),
@@ -211,10 +211,11 @@
       })
 
       $('.box').on('tap',function(){
-        var $box=$(this),
-            colorIndex=Math.floor(Math.random()*8),
-            color=colors[colorIndex];
-        $box.css('background-color',color);
+        // var $box=$(this),
+        //     colorIndex=Math.floor(Math.random()*8),
+        //     color=colors[colorIndex];
+        // $box.css('background-color',color);
+
       })
     })
 
@@ -229,25 +230,34 @@
 
     // 游戏控制类
     var Game={
-      time:30
+      time:30,
+      boxes:{},
+      girls:[],
+      activeBoxes:{},
+      activeGirls:{},
+      init:function(){
+        this.boxes=$('.box');
+        this.girls={
+          0:'#000',
+          1:'#09f',
+          2:'#6ff',
+          3:'#900',
+          4:'#9fc'
+        }
+      },
+      start:function(){
+        var game=this;
+        var boxIndex=Math.floor(Math.random()*9);
+        var girl=game.girls[Math.floor(Math.random()*5)];
+
+        var box=game.boxes.eq(boxIndex);
+      }
     }
 
-    var girls={
-      0:'#000',
-      1:'#09f',
-      2:'#6ff',
-      3:'#900',
-      4:'#9fc'
-    }
 
-    function start(){
-      // console.log(1);
 
-      var girl=girls[Math.floor(Math.random()*5)]
-
-      // setTimeout(start,1000);
-    }
-    start();
+    Game.init();
+    Game.start();
 
   </script>
 </body>
