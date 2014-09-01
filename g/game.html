@@ -33,6 +33,8 @@
   <!-- 分享页面 -->
   <section id="p3">
     <span style="color:#fff;">游戏结束</span>
+    <p class="score">您的得分：<i>0</i></p>
+    <div class="girl"></div>
   </section>
   <script src="http://cdn.bootcss.com/zepto/1.1.4/zepto.min.js"></script>
   <script>
@@ -77,8 +79,10 @@
       this.onTap=function(){
         // 方格里没有妹子
         if(!this.girl) return 0;
+
+        this.tapGirl=this.girl;
         // 点中不好看的妹子
-        else if(this.girl.number===0) return -1;
+        if(this.girl.number===0) return -1;
         // 点中的妹子还可以被点击
         else if(this.girl.isLive){
           this.girl.isLive=false;
@@ -125,7 +129,7 @@
     // 游戏控制类
     var Game={
       // 游戏时间
-      time:6,
+      time:11,
       // 方格
       boxes:[],
       // 妹子照片
@@ -147,18 +151,22 @@
       activeBoxes:{},
       // 当前活动的妹子
       activeGirls:{},
+      // 最后一次点中的妹子
+      lastGirl:null,
 
       init:function(){
         var game=this;
         $('.box').each(function(i){
           var box=new Box();
           box.boxElement=$(this).on('tap',function(){
-            // TODO：点中不好看的妹子，游戏结束
             var result=box.onTap();
-            if(result<0){
+            if(result===0) return;
+            if(result===-1){
+              game.lastGirl=box.girl;
               game.gameover();
             }
-            else{
+            else if(result===1){
+              game.lastGirl=box.girl;
               game.changeScore(result);
             }
           });
@@ -186,6 +194,7 @@
       // 游戏结束
       gameover:function(){
         this.time=-1;
+        $('.girl').css('background-color',this.lastGirl.photo);
         $('#p2').hide();
         $('#p3').show();
       },
@@ -195,6 +204,13 @@
             $timeEle=$('.time');
         game.time-=1;
         $timeEle.html(game.time);
+        // 时间小于5s，高亮时间
+        if(this.time<=5){
+          $timeEle.css({
+            backgroundColor:'#fff',
+            color:'red'
+          })
+        }
         if(this.time>0){
           setTimeout(function(){
             game.countdown();
@@ -233,7 +249,7 @@
         setTimeout(function(){game.randomGirl()},200)
       },
 
-      // 修改得分
+      // 修改得分[同时修改游戏页面和结束页面的得分]
       changeScore:function(score){
         var scoreEle=$('.score i'),
             newScore=parseInt(scoreEle.html())+score;
