@@ -172,6 +172,8 @@
         game.time=11;
         game.boxes=[];
         game.girls=[];
+        game.activeBoxes={};
+        game.activeGirls={};
         $('.score i').html(0);
         $('.time').removeClass('hi');
         game.lastGirl=null;
@@ -276,10 +278,6 @@
             newScore=parseInt(scoreEle.html())+score;
         scoreEle.html(newScore);
       },
-
-      regame:function(){
-
-      }
     }
 
   </script>
