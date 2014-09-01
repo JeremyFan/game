@@ -9,7 +9,7 @@ body{
 
 #p1{
   height:100%;
-  background:#efc3db url(../img/bg.png) no-repeat;
+  background:#e484b9 url(../img/bg.png) no-repeat;
   background-size:100%;
   text-align: center;
 }
@@ -17,12 +17,12 @@ body{
   position: relative;
   display:none; 
   height:100%;
-  background:#efc3db;
+  background:#e484b9;
 }
 #p3{
   display:none;
   height:100%;
-  background-color:#efc3db;
+  background-color:#e484b9;
   text-align: center;
 }
 .content{
