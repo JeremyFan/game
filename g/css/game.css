@@ -21,11 +21,14 @@ body{
 }
 #p3{
   display:none;
+  height:100%;
+  background-color:#efc3db;
   text-align: center;
 }
 .content{
   position: absolute;
   bottom:10%;
+  width:100%;
 }
 .text{
   margin:0;
@@ -36,9 +39,9 @@ body{
 }
 
 .btn{
-  display:inline-block;
+  display:block;
   height:40px;
-  padding:0 25px;
+  margin:0 auto;
   line-height:40px;
   background-color:#ee4987;
   box-shadow:0 5px #ce0351;
@@ -50,10 +53,13 @@ body{
 
 .btn-start,
 .btn-regame{
-  margin-top:20px;
+  width:160px;
+  margin-top:25px;
 }
-.btn-topic{
-  margin-top:30px;
+.btn-topic,
+.btn-share{
+  width:200px;
+  margin-top:25px;
 }
 
 .square{
@@ -102,13 +108,20 @@ body{
   padding:5px;
   text-align: center;
 }
-#p2 .score{
-  position: absolute;
-  left:10px;
+.score{
   line-height:1.2em;
   font-size:1.2em;
   color:#fff;
 }
+#p2 .score{
+  position: absolute;
+  left:10px;
+}
+#p3 .score{
+  display:inline-block;
+  padding:10px 0;
+}
+
 .time{
   display:inline-block;
   width:20px;
