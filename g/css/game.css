@@ -9,44 +9,66 @@ body{
 
 #p1{
   height:100%;
-  background:#7bc3fd;
+  background:#efc3db url(../img/bg.png) no-repeat;
+  background-size:100%;
   text-align: center;
 }
 #p2{
-  display:none; 
   position: relative;
+  display:none; 
   height:100%;
+  background:#efc3db;
 }
 #p3{
   display:none;
   text-align: center;
 }
+.content{
+  position: absolute;
+  bottom:10%;
+}
+.text{
+  margin:0;
+  line-height:1.5em;
+  font-size:0.9em;
+  font-weight: bolder;
+  color:#fb4ba2;
+}
 
-.btn-start,
-.btn-regame{
-  margin-top:150px;
+.btn{
   display:inline-block;
-  width:200px;
-  height:60px;
-  line-height:60px;
-  background:orange;
-  border-radius: 10px;
+  height:40px;
+  padding:0 25px;
+  line-height:40px;
+  background-color:#ee4987;
+  box-shadow:0 5px #ce0351;
+  border-radius: 7px;
+  font-size:1.5em;
   text-align: center;
   color:#fff;
 }
 
+.btn-start,
+.btn-regame{
+  margin-top:20px;
+}
+.btn-topic{
+  margin-top:30px;
+}
+
 .square{
   position:absolute;
-  bottom:10%;
+  top:50%;
   margin:0 auto;
   padding:10px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background:#ccc;
+  background:#de9fc2;
   border-radius:5px;
 }
 .square .box{
+  position: relative;
   display:block;
   float:left;
   width:33.33333%;
@@ -56,22 +78,40 @@ body{
   box-sizing: border-box;
   border:2px solid #ccc;
   border-radius: 5px;
-  background-color:#7bc3fd;
+  background:#7bc3fd url(../img/boxbg.png) no-repeat;
   background-size:cover;
   cursor:pointer;
 }
+/*.square .box i{
+  display:none;
+  position: absolute;
+  top:10px;
+  right:10%;
+  opacity: 1;
+  font-size:1.2em;
+  color:#fff;
+}*/
+/*.square .box i.active{
+  transition:top 1s, opacity 1s;
+  top:-10px;
+  opacity: 0;
+}*/
 
 .info{
+  position: relative;
   padding:5px;
+  text-align: center;
 }
-.score{
+#p2 .score{
+  position: absolute;
+  left:10px;
+  line-height:1.2em;
   font-size:1.2em;
   color:#fff;
 }
 .time{
   display:inline-block;
   width:20px;
-  margin-left:20px;
   padding:5px;
   background:#fd9090;
   border-radius:5px;
@@ -90,6 +130,7 @@ body{
   height:100px;
   margin:0 auto;
   background:#fff;
+  background-size:cover;
 }
 
 

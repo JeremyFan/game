@@ -9,15 +9,22 @@
 <body>
   <!-- 开始 -->
   <section id="p1">
-    <div class="btn-start " id="btnStart">开始游戏</div>
+    <div class="content">
+      <p class="text">
+        中秋太lonely？放开那个五仁月饼！<br>
+        准备好抽纸卷纸面巾纸<br>
+        一大啵兔女郎等你认领中...
+      </p>
+      <div class="btn btn-start" id="btnStart">开始游戏</div>
+      <div class="btn btn-topic" id="btnStart">进入中秋话题</div>
+    </div>
   </section>
   <!-- 游戏页面 -->
   <section id="p2">
     <div class="info">
       <span class="score">得分 <i> 0</i></span>
-      <span class="time">20</span>
+      <span class="time">30</span>
     </div>
-    <p style="color:#fff">点到彩色方块+1分，点到黑色方块游戏结束</p>
     <div class="square">
       <span class="box"></span>
       <span class="box"></span>
@@ -73,10 +80,12 @@
     // 设置方格宽度/高度
     function initSquare(){
       var $square=$('.square'),
+          h=$('.info').height(),
           width=$(window).width()||300;
       $square.css({
         width:width + 'px',
-        height:width + 'px'
+        height:width + 'px',
+        marginTop:-width/2+h+'px'
       });
     }
 
@@ -117,19 +126,19 @@
       // 初始化妹子的照片
       this.photo=photo;
       // 妹子出现
-      this.active=function(){
+      this.active=function(speed){
         var girl=this,
             box=girl.box;
-        box.boxElement.css('background-color',girl.photo);
+        box.boxElement.css('background-image',girl.photo);
         setTimeout(function(){
           girl.hide();
-        },1000);
+        },speed);
       }
       // 妹子隐藏
       this.hide=function(){
         // debugger
         this.isLive=true;
-        this.box.boxElement.css('background-color','#7bc3fd');
+        this.box.boxElement.css('background-image','url(img/boxbg.png)');
         this.box.girl=null;
         this.onHide();
       }
@@ -140,21 +149,35 @@
     // 游戏控制类
     var Game={
       // 游戏时间
-      time:11,
+      time:31,
+      // 速度
+      speed:400,
       // 方格
       boxes:[],
       // 妹子照片
+      // girlPhoto:{
+      //   0:'#000',
+      //   1:'#09f',
+      //   2:'#6ff',
+      //   3:'#900',
+      //   4:'#9fc',
+      //   5:'#6f0',
+      //   6:'#90c',
+      //   7:'#99f',
+      //   8:'#c36',
+      //   9:'#ff6'
+      // },
       girlPhoto:{
-        0:'#000',
-        1:'#09f',
-        2:'#6ff',
-        3:'#900',
-        4:'#9fc',
-        5:'#6f0',
-        6:'#90c',
-        7:'#99f',
-        8:'#c36',
-        9:'#ff6'
+        0:'url(img/0.jpg)',
+        1:'url(img/1.jpg)',
+        2:'url(img/2.jpg)',
+        3:'url(img/3.jpg)',
+        4:'url(img/4.jpg)',
+        5:'url(img/5.jpg)',
+        6:'url(img/6.jpg)',
+        7:'url(img/7.jpg)',
+        8:'url(img/8.jpg)',
+        9:'url(img/9.jpg)'
       },
       // 妹子
       girls:[],
@@ -169,7 +192,8 @@
         var game=this;
 
         // 初始化参数
-        game.time=11;
+        game.time=31;
+        game.speed=400;
         game.boxes=[];
         game.girls=[];
         game.activeBoxes={};
@@ -216,10 +240,10 @@
       gameover:function(){
         this.time=-1;
         if(this.lastGirl){
-          $('.girl').css('background-color',this.lastGirl.photo);
+          $('.girl').css('background-image',this.lastGirl.photo);
         }
         else{
-          $('.girl').css('background-color','#fff');
+          $('.girl').css('background-image','#fff');
         }
         $('#p2').hide();
         $('#p3').show();
@@ -230,6 +254,13 @@
             $timeEle=$('.time');
         game.time-=1;
         $timeEle.html(game.time);
+        if(this.time<=25){
+          game.speed=300;
+        }
+        // 时间小于15s，提升难度
+        if(this.time<=10){
+          game.speed=200;
+        }
         // 时间小于5s，高亮时间
         if(this.time<=5){
           $timeEle.addClass('hi');
@@ -267,9 +298,9 @@
         game.activeBoxes[boxIndex]=true;
         game.activeGirls[girlIndex]=true;
 
-        girl.active();
+        girl.active(game.speed*5);
 
-        setTimeout(function(){game.randomGirl()},200)
+        setTimeout(function(){game.randomGirl()},game.speed)
       },
 
       // 修改得分[同时修改游戏页面和结束页面的得分]
