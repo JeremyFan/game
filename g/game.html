@@ -35,6 +35,7 @@
     <span style="color:#fff;">游戏结束</span>
     <p class="score">您的得分：<i>0</i></p>
     <div class="girl"></div>
+    <div class="btn-regame" id="btnStart">再玩一次</div>
   </section>
   <script src="http://cdn.bootcss.com/zepto/1.1.4/zepto.min.js"></script>
   <script>
@@ -52,6 +53,16 @@
         var $p1=$('#p1'),
             $p2=$('#p2');
         $p1.hide();
+        $p2.show();
+
+        Game.init();
+        Game.start();
+      })
+
+      $('.btn-regame').on('tap',function(){
+        var $p2=$('#p2'),
+            $p3=$('#p3');
+        $p3.hide();
         $p2.show();
 
         Game.init();
@@ -156,6 +167,16 @@
 
       init:function(){
         var game=this;
+
+        // 初始化参数
+        game.time=11;
+        game.boxes=[];
+        game.girls=[];
+        $('.score i').html(0);
+        $('.time').removeClass('hi');
+        game.lastGirl=null;
+
+        // 创建方格
         $('.box').each(function(i){
           var box=new Box();
           box.boxElement=$(this).on('tap',function(){
@@ -170,10 +191,8 @@
               game.changeScore(result);
             }
           });
-
           game.boxes.push(box);
         })
-
         // 创建妹子
         for(var i=0;i<10;i++){
           var girl=new Girl(game.girlPhoto[i]);
@@ -194,7 +213,12 @@
       // 游戏结束
       gameover:function(){
         this.time=-1;
-        $('.girl').css('background-color',this.lastGirl.photo);
+        if(this.lastGirl){
+          $('.girl').css('background-color',this.lastGirl.photo);
+        }
+        else{
+          $('.girl').css('background-color','#fff');
+        }
         $('#p2').hide();
         $('#p3').show();
       },
@@ -206,10 +230,7 @@
         $timeEle.html(game.time);
         // 时间小于5s，高亮时间
         if(this.time<=5){
-          $timeEle.css({
-            backgroundColor:'#fff',
-            color:'red'
-          })
+          $timeEle.addClass('hi');
         }
         if(this.time>0){
           setTimeout(function(){
@@ -254,6 +275,10 @@
         var scoreEle=$('.score i'),
             newScore=parseInt(scoreEle.html())+score;
         scoreEle.html(newScore);
+      },
+
+      regame:function(){
+
       }
     }
 

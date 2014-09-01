@@ -19,9 +19,11 @@ body{
 }
 #p3{
   display:none;
+  text-align: center;
 }
 
-.btn-start{
+.btn-start,
+.btn-regame{
   margin-top:150px;
   display:inline-block;
   width:200px;
@@ -76,6 +78,11 @@ body{
   font-size:1.2em;
   text-align: center;
   color:#fff;
+}
+/*高亮*/
+.time.hi{
+  background-color: #fff;
+  color:red;
 }
 
 .girl{
