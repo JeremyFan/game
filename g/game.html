@@ -16,7 +16,7 @@
 
   #p1{
     height:100%;
-    background:#e484b9 url(../img/bg.jpg) no-repeat;
+    background:#e484b9 url(img/bg.jpg) no-repeat;
     background-size:100%;
     text-align: center;
   }
@@ -92,7 +92,7 @@
     box-sizing: border-box;
     border:4px solid #d14591;
     border-radius: 5px;
-    background:url(../img/boxbg.jpg) no-repeat;
+    background:url(img/boxbg.jpg) no-repeat;
     background-size:cover;
     cursor:pointer;
   }
@@ -212,6 +212,8 @@
         Game.init();
         Game.start();
       })
+
+
     })
 
     // 设置方格宽度/高度
@@ -386,13 +388,27 @@
       },
       // 游戏结束
       gameover:function(){
-        this.time=-1;
-        if(this.lastGirl){
-          $('.girl').css('background-image',this.lastGirl.photo);
+        var game=this;
+        game.time=-1;
+        if(game.lastGirl){
+          $('.girl').css('background-image',game.lastGirl.photo);
         }
         else{
           $('.girl').css('background-image','#fff');
         }
+        $('.btn-share').on('tap',function(){
+          $.ajax({
+            type:'POST',
+            url:'activity/sharegame/sharegame',
+            data:{score:10,nick:'眼疾神人'},
+            success:function(data, status, xhr){
+              debugger
+            },
+            error:function(xhr, errorType, error){
+              debugger
+            }
+          })
+        })
         $('#p2').hide();
         $('#p3').show();
       },
