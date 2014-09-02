@@ -4,142 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=0">
   <title>game name</title>
-  <style>
-  html{
-    height:100%;
-  }
-  body{
-    height:100%;
-    margin:0;
-    background:#f06060;
-  }
-
-  #p1{
-    height:100%;
-    background:#e484b9 url(img/bg.jpg) no-repeat;
-    background-size:100%;
-    text-align: center;
-  }
-  #p2{
-    position: relative;
-    display:none; 
-    height:100%;
-    background:#e484b9;
-  }
-  #p3{
-    display:none;
-    height:100%;
-    background-color:#e484b9;
-    text-align: center;
-  }
-  .content{
-    position: absolute;
-    bottom:10%;
-    width:100%;
-  }
-  .text{
-    margin:0;
-    line-height:1.5em;
-    font-size:0.9em;
-    font-weight: bolder;
-    color:#fb4ba2;
-  }
-
-  .btn{
-    display:block;
-    height:40px;
-    margin:0 auto;
-    line-height:40px;
-    background-color:#ee4987;
-    box-shadow:0 5px #ce0351;
-    border-radius: 7px;
-    font-size:1.5em;
-    text-align: center;
-    color:#fff;
-    cursor:pointer;
-  }
-
-  .btn-start,
-  .btn-regame{
-    width:160px;
-    margin-top:25px;
-  }
-  .btn-topic,
-  .btn-share{
-    width:200px;
-    margin-top:25px;
-  }
-
-  .square{
-    position:absolute;
-    top:50%;
-    margin:0 auto;
-    padding:10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background:#d14591;
-    border-radius:5px;
-  }
-  .square .box{
-    position: relative;
-    display:block;
-    float:left;
-    width:33.33333%;
-    height:33.33333%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border:4px solid #d14591;
-    border-radius: 5px;
-    background:url(img/boxbg.jpg) no-repeat;
-    background-size:cover;
-    cursor:pointer;
-  }
-
-  .info{
-    position: relative;
-    padding:5px;
-    text-align: center;
-  }
-  .score{
-    line-height:1.2em;
-    font-size:1.2em;
-    color:#fff;
-  }
-  #p2 .score{
-    position: absolute;
-    left:10px;
-  }
-  #p3 .score{
-    display:inline-block;
-    padding:10px 0;
-  }
-
-  .time{
-    display:inline-block;
-    width:20px;
-    padding:5px;
-    background:#fd9090;
-    border-radius:5px;
-    font-size:1.2em;
-    text-align: center;
-    color:#fff;
-  }
-  /*高亮*/
-  .time.hi{
-    background-color: #fff;
-    color:red;
-  }
-
-  .girl{
-    width:100px;
-    height:100px;
-    margin:0 auto;
-    background:#fff;
-    background-size:cover;
-  }
-  </style>
+  <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
   <!-- 开始 -->
@@ -157,7 +22,7 @@
   <!-- 游戏页面 -->
   <section id="p2">
     <div class="info">
-      <span class="score">得分 <i> 0</i></span>
+      <span class="score-wrap">秋啵 <i class="score"> 0</i></span>
       <span class="time">30</span>
     </div>
     <div class="square">
@@ -174,8 +39,12 @@
   </section>
   <!-- 分享页面 -->
   <section id="p3">
-    <span class="score">您的得分：<i>0</i></span>
-    <div class="girl"></div>
+    <div class="result">
+      <p class="grade">抢到<i class="score">0</i>个秋啵，击败<i class="rank">80%</i>玩家的你堪称：</p>
+      <p class="nick">残手大神</p>
+      <div class="girl"></div>
+      <p class="text">朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈朋友圈</p>
+    </div>
     <div class="btn btn-share">分享到朋友圈</div>
     <div class="btn btn-topic">进入中秋话题</div>
     <div class="btn btn-regame" id="btnStart">再玩一次</div>
@@ -212,8 +81,6 @@
         Game.init();
         Game.start();
       })
-
-
     })
 
     // 设置方格宽度/高度
@@ -302,21 +169,11 @@
       time:31,
       // 速度
       speed:400,
+      // 得分
+      score:0,
       // 方格
       boxes:[],
       // 妹子照片
-      // girlPhoto:{
-      //   0:'#000',
-      //   1:'#09f',
-      //   2:'#6ff',
-      //   3:'#900',
-      //   4:'#9fc',
-      //   5:'#6f0',
-      //   6:'#90c',
-      //   7:'#99f',
-      //   8:'#c36',
-      //   9:'#ff6'
-      // },
       girlPhoto:{
         0:'url(img/0.jpg)',
         1:'url(img/1.jpg)',
@@ -344,11 +201,12 @@
         // 初始化参数
         game.time=31;
         game.speed=400;
+        game.score=0;
         game.boxes=[];
         game.girls=[];
         game.activeBoxes={};
         game.activeGirls={};
-        $('.score i').html(0);
+        $('#p2 .score').html(0);
         $('.time').removeClass('hi');
         game.lastGirl=null;
 
@@ -388,29 +246,80 @@
       },
       // 游戏结束
       gameover:function(){
-        var game=this;
+        var game=this,
+            result=game.getGameResult(this.score),
+            $container=$('#p3');
         game.time=-1;
-        if(game.lastGirl){
-          $('.girl').css('background-image',game.lastGirl.photo);
-        }
-        else{
-          $('.girl').css('background-image','#fff');
-        }
-        $('.btn-share').on('tap',function(){
-          $.ajax({
-            type:'POST',
-            url:'activity/sharegame/sharegame',
-            data:{score:10,nick:'眼疾神人'},
-            success:function(data, status, xhr){
-              debugger
-            },
-            error:function(xhr, errorType, error){
-              debugger
-            }
-          })
-        })
+
+        $('.score',$container).html(result.score);
+        $('.rank',$container).html(result.rank);
+        $('.nick',$container).html(result.nickname);
+        $('.girl',$container).css('background-image',result.photo);
+        $('.text',$container).html(result.text);
+
+        $('.btn-share').on('tap',$.proxy(game.share, game));
+
         $('#p2').hide();
         $('#p3').show();
+      },
+      // 分享
+      share:function(){
+        var result=game.getGameResult(this.score);
+        $.ajax({
+          type:'POST',
+          url:'/activity/sharegame/sharegame',
+          data:{score:result.score,nick:result.nickname},
+          dataType:'text',
+          success:function(data, status, xhr){
+            debugger
+          },
+          error:function(xhr, errorType, error){
+            debugger
+          }
+        })
+      },
+      // 根据分数获取游戏结果：排名，称号，说明等
+      getGameResult:function(score){
+        var result={};
+        result.score=score;
+        if(score<=50||!this.lastGirl){
+          result.photo='url(img/0.jpg)';
+        }
+        else{
+          result.photo=this.lastGirl.photo;
+        }
+
+        if(score>=0&&score<=10){
+          result.rank='5%';
+          result.nickname='残手大仙';
+          result.text='似玉妹妹就是你中秋之夜的归宿，再送你被黑出翔的五仁月饼，和她一起双宿双飞！<br>马上再试试，别让兔女郎久等哦！';
+        }
+        else if(score>10&&score<=30){
+          result.rank='20%';
+          result.nickname='眼疾神人';
+          result.text='似玉妹妹正痴痴地等着你、盼着你，今晚村头小麦地里见，一起赏秋月哦！<br>马上再试试，兔女郎就在眼前！';
+        }
+        else if(score>30&&score<=50){
+          result.rank='45%';
+          result.nickname='啵中败将';
+          result.text='你终于拜倒在似玉妹妹的石榴裙下，她丰满的红唇、销魂的身姿将是你中秋夜的幸福陪伴！<br>分享给好友，一起赢取兔女郎的芳心！';
+        }
+        else if(score>50&&score<=68){
+          result.rank='65%';
+          result.nickname='啵中勇士';
+          result.text='眼急手快、坐拥女神的你，这个中秋不再空虚寂寞冷！<br>马上分享，让小伙伴们羡慕嫉妒恨！';
+        }
+        else if(score>80&&score<=100){
+          result.rank='85%';
+          result.nickname='秋啵豪杰';
+          result.text='床前明月光，疑是空井苍！<br>在这个月圆的中秋，你用实力证明了自己！<br>赶紧分享，让你的传说流传于江湖！';
+        }
+        else if(score>100){
+          result.rank='99.9%';
+          result.nickname='超级啵霸';
+          result.text='你不是风，却有着龙卷风的速度；<br>你不是二郎神，却有着二郎神的眼力！<br>立刻分享，让小伙伴们震惊去吧！';
+        }
+        return result;
       },
       // 倒计时
       countdown:function(){
@@ -467,14 +376,12 @@
         setTimeout(function(){game.randomGirl()},game.speed)
       },
 
-      // 修改得分[同时修改游戏页面和结束页面的得分]
+      // 修改得分
       changeScore:function(score){
-        var scoreEle=$('.score i'),
-            newScore=parseInt(scoreEle.html())+score;
-        scoreEle.html(newScore);
-      },
+        this.score+=score;
+        $('#p2 .score').html(this.score);
+      }
     }
-
   </script>
 </body>
 </html>
