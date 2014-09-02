@@ -1,10 +1,145 @@
 <!doctype html>
 <html>
 <head>
-  <link rel="stylesheet" href="css/game.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=0">
   <title>game name</title>
+  <style>
+  html{
+    height:100%;
+  }
+  body{
+    height:100%;
+    margin:0;
+    background:#f06060;
+  }
+
+  #p1{
+    height:100%;
+    background:#e484b9 url(../img/bg.jpg) no-repeat;
+    background-size:100%;
+    text-align: center;
+  }
+  #p2{
+    position: relative;
+    display:none; 
+    height:100%;
+    background:#e484b9;
+  }
+  #p3{
+    display:none;
+    height:100%;
+    background-color:#e484b9;
+    text-align: center;
+  }
+  .content{
+    position: absolute;
+    bottom:10%;
+    width:100%;
+  }
+  .text{
+    margin:0;
+    line-height:1.5em;
+    font-size:0.9em;
+    font-weight: bolder;
+    color:#fb4ba2;
+  }
+
+  .btn{
+    display:block;
+    height:40px;
+    margin:0 auto;
+    line-height:40px;
+    background-color:#ee4987;
+    box-shadow:0 5px #ce0351;
+    border-radius: 7px;
+    font-size:1.5em;
+    text-align: center;
+    color:#fff;
+    cursor:pointer;
+  }
+
+  .btn-start,
+  .btn-regame{
+    width:160px;
+    margin-top:25px;
+  }
+  .btn-topic,
+  .btn-share{
+    width:200px;
+    margin-top:25px;
+  }
+
+  .square{
+    position:absolute;
+    top:50%;
+    margin:0 auto;
+    padding:10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background:#d14591;
+    border-radius:5px;
+  }
+  .square .box{
+    position: relative;
+    display:block;
+    float:left;
+    width:33.33333%;
+    height:33.33333%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border:4px solid #d14591;
+    border-radius: 5px;
+    background:url(../img/boxbg.jpg) no-repeat;
+    background-size:cover;
+    cursor:pointer;
+  }
+
+  .info{
+    position: relative;
+    padding:5px;
+    text-align: center;
+  }
+  .score{
+    line-height:1.2em;
+    font-size:1.2em;
+    color:#fff;
+  }
+  #p2 .score{
+    position: absolute;
+    left:10px;
+  }
+  #p3 .score{
+    display:inline-block;
+    padding:10px 0;
+  }
+
+  .time{
+    display:inline-block;
+    width:20px;
+    padding:5px;
+    background:#fd9090;
+    border-radius:5px;
+    font-size:1.2em;
+    text-align: center;
+    color:#fff;
+  }
+  /*高亮*/
+  .time.hi{
+    background-color: #fff;
+    color:red;
+  }
+
+  .girl{
+    width:100px;
+    height:100px;
+    margin:0 auto;
+    background:#fff;
+    background-size:cover;
+  }
+  </style>
 </head>
 <body>
   <!-- 开始 -->
@@ -55,8 +190,6 @@
   <script>
     $(function(){
 
-      initSquare();
-
       $('.btn-start').on('tap',function(){
         var $p1=$('#p1'),
             $p2=$('#p2');
@@ -66,6 +199,9 @@
         Game.init();
         Game.start();
       })
+
+      initSquare();
+      downloadImage();
 
       $('.btn-regame').on('tap',function(){
         var $p2=$('#p2'),
@@ -88,6 +224,17 @@
         height:width + 'px',
         marginTop:-width/2+h+'px'
       });
+    }
+    // 缓存图片
+    function downloadImage(){
+      var boxbg=new Image(),
+          imgs=[];
+      boxbg.src='img/boxbg.jpg';
+
+      for(var i=0;i<10;i++){
+        imgs[i]=new Image();
+        imgs[i].src='img/'+i+'.jpg';
+      }
     }
 
     // 方格类
@@ -139,13 +286,13 @@
       this.hide=function(){
         // debugger
         this.isLive=true;
-        this.box.boxElement.css('background-image','url(img/boxbg.png)');
+        this.box.boxElement.css('background-image','url(img/boxbg.jpg)');
         this.box.girl=null;
         this.onHide();
       }
       // 妹子隐藏扩展
       this.onHide=function(){};
-    }
+    } 
 
     // 游戏控制类
     var Game={
