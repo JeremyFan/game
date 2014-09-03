@@ -59,8 +59,10 @@
   <!-- 页面脚本 -->
   <script>
     $(function(){
+      // 设置单击事件
+      setClickEvent();
 
-      $('.btn-start').on('tap',function(){
+      $('.btn-start').on(CLICK,function(){
         var $p1=$('#p1'),
             $p2=$('#p2');
         $p1.hide();
@@ -70,11 +72,11 @@
         Game.start();
       })
 
-      $('#p1 .btn-topic').on('tap',function(){
+      $('#p1 .btn-topic').on(CLICK,function(){
         if(typeof wa_regIdCount!=='undefined') wa_regIdCount(412150);
         location.href='http://f.10086.cn/info/c/?nid=2152&rid=1-528904';
       })
-      $('#p3 .btn-topic').on('tap',function(){
+      $('#p3 .btn-topic').on(CLICK,function(){
         if(typeof wa_regIdCount!=='undefined') wa_regIdCount(412152);
         location.href='http://f.10086.cn/info/c/?nid=2152&rid=1-528904';
       })
@@ -82,7 +84,7 @@
       initSquare();
       downloadImage();
 
-      $('.btn-regame').on('tap',function(){
+      $('.btn-regame').on(CLICK,function(){
         var $p2=$('#p2'),
             $p3=$('#p3');
         $p3.hide();
@@ -96,12 +98,26 @@
     // 设置方格宽度/高度
     function initSquare(){
       var $square=$('.square'),
-          h=$('.info').height(),
-          width=$(window).width()||300;
+          $topbar=$('.info'),
+          // h=$('.info').height(),
+          width;
+      if(isMobile()){
+        width=$(window).width()||300;
+      }
+      else{
+        width=450;
+        $square.css({
+          left:'50%',
+          marginLeft:-width/2+'px'
+        });
+        $topbar.css({
+          width:width
+        })
+      }
       $square.css({
         width:width + 'px',
         height:width + 'px',
-        marginTop:-width/2+h+'px'
+        marginTop:-width/2+25+'px'
       });
     }
     // 缓存图片
@@ -223,7 +239,7 @@
         // 创建方格
         $('.box').each(function(i){
           var box=new Box();
-          box.boxElement=$(this).on('tap',function(){
+          box.boxElement=$(this).on(CLICK,function(){
             var result=box.onTap(),
                 $boxEle=box.boxElement;
             if(result===0) return;
@@ -272,7 +288,7 @@
         $('.girl',$container).css('background-image',result.photo);
         $('.text',$container).html(result.text);
 
-        $('.btn-share').on('tap',$.proxy(game.share, game));
+        $('.btn-share').on(CLICK,$.proxy(game.share, game));
 
         $('#p2').hide();
         $('#p3').show();
@@ -396,6 +412,7 @@
         $('#p2 .score').html(this.score);
       }
     }
+    // 提示框
     function showLog(msg){
       var $tip=$('.tip');
       $tip.html(msg);
@@ -403,6 +420,20 @@
       setTimeout(function(){
         $tip.hide();
       },1000)
+    }
+    // 检测设备
+    function isMobile(){
+      var s=navigator.userAgent.toLowerCase();
+      return Boolean(
+        s.indexOf('iphone')>=0 ||
+        s.indexOf('android')>=0 ||
+        s.indexOf('windows phone')>=0
+        );
+    }
+    // 设置事件
+    var CLICK;
+    function setClickEvent(){
+      CLICK=isMobile()?'tap':'click';
     }
   </script>
 </body>
