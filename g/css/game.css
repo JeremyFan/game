@@ -88,7 +88,15 @@
     border-radius: 5px;
     background:url(../img/boxbg.jpg) no-repeat;
     background-size:cover;
+    text-align: center;
     cursor:pointer;
+  }
+  .square .box img{
+    display:none;
+    margin-top:35%;
+  }
+  .square .box.tap img{
+    display:inline-block;
   }
 
   .info{
@@ -152,4 +160,18 @@
   }
   #p3 .text{
     color:#fff;
+  }
+  .tip{
+    display:none;
+    position:absolute;
+    top:40%;
+    left:50%;
+    width:200px;
+    margin-left:-100px;
+    padding:20px 10px;
+    vertical-align:middle;
+    background:#fff;
+    border-radius:5px;
+    text-align:center;
+    color:#333;
   }

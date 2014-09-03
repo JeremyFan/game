@@ -26,15 +26,15 @@
       <span class="time">30</span>
     </div>
     <div class="square">
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
-      <span class="box"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
+      <span class="box"><img src="img/tap.png"></span>
     </div>
   </section>
   <!-- 分享页面 -->
@@ -49,6 +49,7 @@
     <div class="btn btn-topic">进入中秋话题</div>
     <div class="btn btn-regame" id="btnStart">再玩一次</div>
   </section>
+  <div class="tip"></div>
   <script src="http://cdn.bootcss.com/zepto/1.1.4/zepto.min.js"></script>
   <script>
   // zepto touch.js
@@ -223,13 +224,18 @@
         $('.box').each(function(i){
           var box=new Box();
           box.boxElement=$(this).on('tap',function(){
-            var result=box.onTap();
+            var result=box.onTap(),
+                $boxEle=box.boxElement;
             if(result===0) return;
             if(result===-1){
               game.lastGirl=box.girl;
               game.gameover();
             }
             else if(result===1){
+              $boxEle.addClass('tap');
+              setTimeout(function(){
+                $boxEle.removeClass('tap');
+              },100);
               game.lastGirl=box.girl;
               game.changeScore(result);
             }
@@ -273,7 +279,7 @@
       },
       // 分享
       share:function(){
-        var result=game.getGameResult(this.score);
+        var result=this.getGameResult(this.score);
         $.ajax({
           type:'POST',
           url:'/activity/sharegame/sharegame',
@@ -384,12 +390,19 @@
 
         setTimeout(function(){game.randomGirl()},game.speed)
       },
-
       // 修改得分
       changeScore:function(score){
         this.score+=score;
         $('#p2 .score').html(this.score);
       }
+    }
+    function showLog(msg){
+      var $tip=$('.tip');
+      $tip.html(msg);
+      $tip.show();
+      setTimeout(function(){
+        $tip.hide();
+      },1000)
     }
   </script>
 </body>
