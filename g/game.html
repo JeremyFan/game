@@ -320,20 +320,20 @@
 
         $('.btn-share').one(Page._CLICK,$.proxy(game.share, game));
 
-        if(typeof $('#p2')[0].style['webkitTransition']!=='undefined' ||
-          typeof $('#p2')[0].style['transition']!=='undefined'||
-          typeof $('#p2')[0].style['oTransition']!=='undefined'||
-          typeof $('#p2')[0].style['otransition']!=='undefined'){
-          $('#p2').addClass('hide');
-          $('#p2').one('webkitTransitionEnd transitionend oTransitionEnd otransitionend',function(){
-            $('#p2').hide().removeClass('hide')
-            $('#p3').show();
-          })
-        }
-        else{
+        // if(typeof $('#p2')[0].style['webkitTransition']!=='undefined' ||
+        //   typeof $('#p2')[0].style['transition']!=='undefined'||
+        //   typeof $('#p2')[0].style['oTransition']!=='undefined'||
+        //   typeof $('#p2')[0].style['otransition']!=='undefined'){
+        //   $('#p2').addClass('hide');
+        //   $('#p2').one('webkitTransitionEnd transitionend oTransitionEnd otransitionend',function(){
+        //     $('#p2').hide().removeClass('hide')
+        //     $('#p3').show();
+        //   })
+        // }
+        // else{
           $('#p2').hide();
           $('#p3').show();
-        }
+        // }
 
 
       },
