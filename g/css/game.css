@@ -36,7 +36,12 @@
     display:none; 
     height:100%;
     background:#e484b9;
+    transition:opacity 1s;
   }
+  #p2.hide{
+    opacity: 0
+  }
+
   #p3{
     display:none; 
     height:100%;
