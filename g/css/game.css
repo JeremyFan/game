@@ -1,6 +1,6 @@
   html{
     height:100%;
-    font-size:14px/1 "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+    font:14px/1 "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
   }
   body{
     height:100%;
@@ -39,7 +39,7 @@
     transition:opacity 1s;
   }
   #p2.hide{
-    opacity: 0
+    opacity: 0;
   }
 
   #p3{
@@ -60,7 +60,18 @@
     font-weight: bolder;
     color:#fff;
   }
-
+  .text .causion{
+    display:inline-block;
+    margin-top:5px;
+    padding:5px;
+    font-weight: lighter;
+    background-color:#c03;
+    border-radius: 5px;
+  }
+  .text strong{
+    font-weight:bolder;
+    color:#900;
+  }
   .btn{
     display:block;
     height:40px;
@@ -138,7 +149,6 @@
     top:10px;
     left:10px;
     line-height:1.2em;
-    /*font-size:1.2em;*/
     color:#fff;
   }
   #p2 .score-wrap .score{
@@ -197,6 +207,7 @@
     width:200px;
     margin-left:-100px;
     padding:20px 10px;
+    line-height:1.5em;
     vertical-align:middle;
     background:#fff;
     border-radius:5px;
@@ -205,6 +216,7 @@
   }
 
   @media screen and (min-width:800px){
+    html{font-size:16px;}
     #p1{
       background-image:url(../img/bgpc.jpg);
     }
