@@ -36,7 +36,8 @@ header .button input{ width:60px; height:35px; border:1px solid #fb6733; border-
 /*内容*/
 section{ width:100%; background:url(../img/bg.png) no-repeat; background-size:100%; box-sizing:border-box; height:100%; margin:0px auto; padding-top:40px;}
 section .caption{}
-section .caption img{ width:60%; height:60%;}
+/*section .caption img{ width:60%; height:60%;}*/
+section .caption img{ width:220px; height:35px;}
 section .main{ margin:75px 10px 10px 10px; position:relative;}
 .main .content{border-radius:8px; width:100%; background-color:rgba(255,255,255,0.8);}
 .main .content img{ width:80px; height:80px; position:relative; top:-40px; margin:0px 6px;}
