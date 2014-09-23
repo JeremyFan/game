@@ -34,7 +34,7 @@ header .title{ display:block; color:#333; font-size:1.3em; line-height:40px;}
 header .button input{ width:60px; height:35px; border:1px solid #fb6733; border-radius:3px; color:#fb6733; background-color:#fff; position:absolute; top:12px; right:10px; font-size:1em;}
 
 /*内容*/
-section{ width:100%; background:url(../img/bg.png) no-repeat; background-size:100% 100%; box-sizing:border-box; height:100%; margin:0px auto; padding-top:40px;}
+section{ width:100%; background:url(../img/bg.png) no-repeat; background-size:100%; box-sizing:border-box; height:100%; margin:0px auto; padding-top:40px;}
 section .caption{}
 section .caption img{ width:60%; height:60%;}
 section .main{ margin:75px 10px 10px 10px; position:relative;}

@@ -172,7 +172,7 @@
         else{
           if(page.score<40){
             page.$resultLi.eq(0).addClass('active');
-            page.$resultImg.eq(0).addClass('active');
+            page.$resultImg.eq(2).addClass('active');
           }
           else if(page.score<=70){
             page.$resultLi.eq(1).addClass('active');
@@ -180,7 +180,7 @@
           }
           else{
             page.$resultLi.eq(2).addClass('active');
-            page.$resultImg.eq(2).addClass('active');
+            page.$resultImg.eq(0).addClass('active');
           }
           $sec2.hide();
           $sec3.show();
