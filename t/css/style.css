@@ -1,0 +1,70 @@
+@charset "utf-8";
+/*初始化*/
+*{padding:0;margin:0 auto;}
+*,*:after,*:before{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;-ms-box-sizing:content-box;-o-box-sizing:content-box;box-sizing:content-box;padding:0;margin:0}
+body{height:100%;font:16px "微软雅黑","黑体",Verdana;word-wrap:break-word;word-break:break-all;color:#535354;-webkit-tap-highlight-color:rgba(0,0,0,0); text-align:center; background-color:#fff;}
+table{border-collapse:collapse;border-spacing:0}
+li{list-style:none outside}
+address,caption,cite,code,dfn,em,strong{font-weight:normal;font-style:normal;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;font-style:normal;}img{border:0;}
+a{text-decoration:none;outline:0; color:#333745;}
+a:hover{text-decoration:none}
+a:active{ background-color:inherit;}
+html{height:100%;}
+section,article,aside,header,footer,nav,dialog,figure{display:block}
+input,select,img{vertical-align:middle}
+em,b,i{font-weight:normal;font-style:normal}
+.clearfix:after{content:".";height:0;visibility:hidden;display:block;clear:both}
+.clearfix{display:inline-block}
+.clearfix{display:block}
+.clear{clear:both;overflow:hidden;height:0}
+*:link,*:visited,*:hover,*:active,*:focus{-webkit-transition:color .25s linear,background-color .25s linear}
+.none{display:none}
+
+.clearfix {}
+.clearfix:before, .clearfix:after {content: "";display: table;line-height: 0;}
+.clearfix:after {clear: both;}
+/*初始化结束*/
+
+
+/*header*/
+header{ height:40px; padding:10px; background-color:#fff; position:relative;}
+header .return{ position:absolute; top:14px; left:10px; width:19px; height:30px; background:url(../img/return.png) 0px center no-repeat; background-size:22px 35px; display:block;}
+header .title{ display:block; color:#333; font-size:1.3em; line-height:40px;}
+header .button input{ width:60px; height:35px; border:1px solid #fb6733; border-radius:3px; color:#fb6733; background-color:#fff; position:absolute; top:12px; right:10px; font-size:1em;}
+
+/*内容*/
+section{ width:100%; background:url(../img/bg.png) no-repeat; background-size:100% 100%; box-sizing:border-box; height:100%; margin:0px auto; padding-top:40px;}
+section .caption{}
+section .caption img{ width:60%; height:60%;}
+section .main{ margin:75px 10px 10px 10px; position:relative;}
+.main .content{border-radius:8px; width:100%; background-color:rgba(255,255,255,0.8);}
+.main .content img{ width:80px; height:80px; position:relative; top:-40px; margin:0px 6px;}
+.main .content .text{ line-height:24px; text-align:left; margin:-30px 15px 0px 15px; padding-bottom:30px; }
+.main .content input[type=button]{ height:35px; width:90%; border-radius:5px; border-top:2px solid #f29251; border-left:1px solid #f29251; border-bottom:1px solid #f29251; border-right:1px solid #f29251; background-color:rgba(234,143,82,0.7); color:#fff; font-size:1.3em; font-family:"微软雅黑"; margin-bottom:30px;}
+
+
+
+.main .content ul li{ text-align:left; margin:-30px 15px 0px 15px; padding-bottom:30px;}
+.main .content ul li h3 span{ display:inline-block;}
+.main .content ul li h3{height:40px; margin:0px 10px; padding-bottom:10px;}
+.main .content ul li p{ margin:0px 10px;text-align:left;padding:15px 0;}
+.main .content ul li p input{ display:inline;}
+
+
+
+.main .content .anal li{ text-align:left; margin:-30px 20px 0px 20px; padding:0px;}
+.main .content .anal h1{ font-size:1.3em; color:#d45b5b; font-family:"微软雅黑"; line-height:40px; border-bottom:1px solid #fff; font-weight:bold;}
+.main .content .anal h2{ font-size:1.15em; color:#333; font-weight:500; line-height:40px;}
+
+.main .content .anal p{ margin:0px; padding:0px;}
+.main .content .share input{ height:35px; width:90%; border-radius:5px; border-top:2px solid #75c5d8; border-left:1px solid #75c5d8; border-right:1px solid #75c5d8; border-bottom:1px solid #75c5d8; background-color:rgba(125,208,228,0.7); color:#fff; font-size:1.3em; margin-top:15px; margin-bottom:15px;}
+.main .content .again input{ height:25px; width:90%; border-radius:5px; border-top:2px solid #434444; border-left:1px solid #434444; border-right:1px solid #434444; border-bottom:1px solid #434444; background-color:rgba(67,68,68,0.7); color:#fff; font-size:0.9em; margin-bottom:15px;}
+
+#sec-2,#sec-3{display:none;}
+#questionList li{display:none;}
+#questionList li.active{display:block;}
+.result-img{display:none;}
+.result-img.active{display:inline-block;}
+#result li{display:none;}
+#result li.active{display:block;}
