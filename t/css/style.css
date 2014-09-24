@@ -65,7 +65,7 @@ section .main{ margin:75px 10px 10px 10px; position:relative;}
 #sec-2,#sec-3{display:none;}
 #questionList li{display:none;}
 #questionList li.active{display:block;}
-#questionList li p{padding-left:5px;}
+#questionList li p{padding-left:5px; -webkit-tap-highlight-color:transparent;}
 #questionList li p.select{background:#999;border-radius:5px;}
 .result-img{display:none;}
 .result-img.active{display:inline-block;}
