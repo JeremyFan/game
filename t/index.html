@@ -17,7 +17,7 @@
        <div class="main">
             <div class="content">
                  <img src="img/icon01.png">
-                 <p class="text">国庆长假到！经历了废(can)寝(jue)忘(ren)食(huan)的“假前大加班”后，一起来测试你的身心疲劳程度吧！请根据最近一周内自身的情况作答，40分以下提示轻度疲劳，40分-70分提示中度疲劳，超过70分属于重度疲劳。</p>
+                 <p class="text">国庆长假到！经历了废(can)寝(jue)忘(ren)食(huan)的“假前大加班”后，一起来测试你的身心疲劳程度吧！请根据最近一周内自身的情况作答，40分以下提示轻度疲劳，40分-70分提示中度疲劳，超过70分提示重度疲劳。</p>
                  <input id="btn-start" type="button" value="开始测试">
             </div>
        </div>
@@ -30,7 +30,7 @@
                  <ul id="questionList">
                      <li class="active">
                           <h3><span>1.</span>在处理一些紧急公务中，我经常掌心冰冷或出汗：</h3>
-                          <p><input type="radio" value="10" name="1">A&nbsp;经常如此</p>
+                          <p><input type="radio" value="10" name="1"> A&nbsp;经常如此</p>
                           <p><input type="radio" value="5" name="1">B&nbsp;有时如此</p>
                           <p><input type="radio" value="2" name="1">C&nbsp;极少如此</p>
                      </li>
@@ -101,22 +101,22 @@
                  <img class="result-img" src="img/icon03.png">
                  <ul id="result" class="anal">
                      <li>
-                         <h1>低于40分</h1>
+                         <h1>测试结果：<span class="score"></span>分</h1>
                          <h2>详情分析：</h2>
                          <p>你的身心疲劳程度很轻微，说明你能够处理好生活和工作的关系，总体生活状态还不错。继续加油，趁着长假好好犒劳自己吧！</p>
                      </li>
                      <li>
-                         <h1>40分 - 70分</h1>
+                         <h1>测试结果：<span class="score"></span></h1>
                          <h2>详情分析：</h2>
                          <p>你的身心正处于中度疲劳状态。建议你在假期中保持充足的睡眠，收听舒缓的音乐，多选择散步，聚会等活动，调整精神状态。</p>
                      </li>
                      <li>
-                         <h1>高于70分</h1>
+                         <h1>测试结果：<span class="score"></span></h1>
                          <h2>详情分析：</h2>
                          <p>你的身心正处于重度疲劳状态！不平衡的工作状态和生活状态使你感到身心疲惫。趁着长假，将时间交给自己，选择一个向往的地方，来一次悠闲的心灵之旅吧！</p>
                      </li>
                  </ul>
-                 <div class="share"><input type="button" value="分享给朋友（圈）"></div>
+                 <div class="share"><input id="btn-share" type="button" value="分享到朋友圈"></div>
                  <div class="again"><input id="btn-again" type="button" value="再来一次"></div>
             </div>
        </div>
@@ -126,36 +126,48 @@
 
 <script>
   var Page={
-
+    // 得分
     score:0,
-
+    // 初始化
     init:function(){
 
       this.$resultLi=$('#result li');
       this.$resultImg=$('.result-img');
       this.$answerLi=$('#questionList li');
       this.$answer=$('#questionList p');
+      this.$score=$('.score');
 
       this.bind();
     },
+    // 绑定事件
     bind:function(){
       var page=this,
           $sec1=$('#sec-1'),
           $sec2=$('#sec-2'),
           $sec3=$('#sec-3'),
           $btnStart=$('#btn-start'),
+          $btnShare=$('#btn-share'),
           $btnAgain=$('#btn-again');
 
+      // 开始游戏
       $btnStart.on('click',function(){
         $sec1.hide();
         $sec2.show();
+        if(typeof wa_regIdCount!=='undefined') wa_regIdCount(412306);
       })
-
+      // 分享到朋友圈
+      $btnShare.on('click',function(){
+        page.share();
+        if(typeof wa_regIdCount!=='undefined') wa_regIdCount(412307);
+      })
+      // 再来一次
       $btnAgain.on('click',function(){
         page.reset();
         $sec3.hide();
-        $sec2.show();
+        $sec1.show();
+        if(typeof wa_regIdCount!=='undefined') wa_regIdCount(412308);
       })
+
 
       page.$answer.on('click',function(){
         var $p=$(this),
@@ -163,30 +175,72 @@
             $li=$p.parent('li');
             $nextLi=$li.next('li');
 
+        if($p.hasClass('select')) return;
+
         page.score+=parseInt($radio.val());
 
-        if($nextLi.length){
-          $li.removeClass('active');
-          $nextLi.addClass('active');
-        }
-        else{
-          if(page.score<40){
-            page.$resultLi.eq(0).addClass('active');
-            page.$resultImg.eq(2).addClass('active');
-          }
-          else if(page.score<=70){
-            page.$resultLi.eq(1).addClass('active');
-            page.$resultImg.eq(1).addClass('active');
+        $p.addClass('select');
+
+        setTimeout(function(){
+          if($nextLi.length){
+            $li.removeClass('active');
+            $nextLi.addClass('active');
           }
           else{
-            page.$resultLi.eq(2).addClass('active');
-            page.$resultImg.eq(0).addClass('active');
+            page.$score.html(page.score);
+
+            if(page.score<40){
+              page.$resultLi.eq(0).addClass('active');
+              page.$resultImg.eq(2).addClass('active');
+            }
+            else if(page.score<=70){
+              page.$resultLi.eq(1).addClass('active');
+              page.$resultImg.eq(1).addClass('active');
+            }
+            else{
+              page.$resultLi.eq(2).addClass('active');
+              page.$resultImg.eq(0).addClass('active');
+            }
+            $sec2.hide();
+            $sec3.show();
           }
-          $sec2.hide();
-          $sec3.show();
-        }
+          $p.removeClass('select');
+        },200)
       })
     },
+    share:function(){
+      var page=this,
+          data = {
+          'summary' : '我刚参加了身心疲劳度测试，我的疲劳指数'+page.score+'分，真心伤不起~速度拿起手机，一起来测测吧！ http://' + location.hostname + '/activity/psychtest/index',
+          'image_permalink' : '/img/webjpg',
+          'image_thumbnail' : '/img/web.jpg',
+          'image_url' : '/img/web.jpg',
+          'image_big' : '/img/web.jpg',
+          'image_flow' : '/img/web.jpg',
+          'image_wap' : '/img/wap.jpg',
+          'image_shenbian' : '/img/wap.jpg'
+      };
+      $.ajax({
+          type:'POST',
+          url:'/feedoperation/publishStatus',
+          data: data,
+          dataType:'json',
+          success:function(data, status, xhr){
+              if(typeof data === 'object' && data.feedid !== null)
+              {
+                  page.showLog('分享成功，拉上小伙伴一起来测试吧 (๑•3•)و✧');
+              }
+              else
+              {
+                  page.showLog('网络开小差咯，请再试试看~')
+              }
+          },
+          error:function(xhr, errorType, error){
+              page.showLog('请先登录飞信哦！');
+          }
+      })
+    },
+    // 重置
     reset:function(){
       this.score=0;
       this.$resultImg.removeClass('active');
@@ -194,6 +248,16 @@
 
       this.$answerLi.removeClass('active');
       this.$answerLi.eq(0).addClass('active');
+    },
+    showLog:function(msg){
+      var $tip=$('<div class="tip"></div>'),
+          $body=$('body');
+      $body.append($tip);
+      $tip.html(msg);
+      $tip.show();
+      setTimeout(function(){
+          $tip.remove();
+      },1000)
     }
   }
 
