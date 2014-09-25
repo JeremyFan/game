@@ -39,7 +39,7 @@ section .caption{}
 /*section .caption img{ width:60%; height:60%;}*/
 section .caption img{ width:220px; height:35px;}
 section .main{ margin:75px 10px 10px 10px; position:relative;}
-.main .content{border-radius:8px; width:100%; background-color:rgba(255,255,255,0.8);}
+.main .content{box-sizing:border-box;border-radius:8px; width:100%; background-color:rgba(255,255,255,0.8);}
 .main .content img{ width:80px; height:80px; position:relative; top:-40px; margin:0px 6px;}
 .main .content .text{ line-height:24px; text-align:left; margin:-30px 15px 0px 15px; padding-bottom:30px; }
 .main .content input[type=button]{ height:35px; width:90%; border-radius:5px; border-top:2px solid #f29251; border-left:1px solid #f29251; border-bottom:1px solid #f29251; border-right:1px solid #f29251; background-color:rgba(234,143,82,0.7); color:#fff; font-size:1.3em; font-family:"微软雅黑"; margin-bottom:30px;}
